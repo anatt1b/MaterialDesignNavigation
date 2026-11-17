@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { PaperProvider } from 'react-native-paper'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import HomeScreen from './screens/HomeScreen'
+import SecondScreen from './screens/SecondScreen'
+import NavigationBar from './components/NavigationBar'
+
+// Pinonavigointi: uusi näkymä menee vanhan päälle kuin kortti pakkaan
+const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    // Antaa Paperin tyylit koko sovellukselle ja kertoo, mistä kuvakkeet haetaan
+    <PaperProvider settings={{ icon: (props) => <MaterialCommunityIcons {...props} /> }}>
+      {/* Pitää kirjaa, missä näkymässä ollaan */}
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Eka sivu" // sovellus aukeaa Eka sivu -näkymään
+          screenOptions={{ header: (props) => <NavigationBar {...props} /> }} // oma yläpalkki kaikille näkymille
+        >
+          {/* Näkymät: name = nimi jolla navigoidaan, component = näytettävä ruutu */}
+          <Stack.Screen name="Eka sivu" component={HomeScreen} />
+          <Stack.Screen name="Toka sivu" component={SecondScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
