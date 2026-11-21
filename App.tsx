@@ -5,9 +5,10 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import HomeScreen from './screens/HomeScreen'
 import SecondScreen from './screens/SecondScreen'
 import NavigationBar from './components/NavigationBar'
+import { RootStackParamList } from './types'
 
 // Pinonavigointi: uusi näkymä menee vanhan päälle kuin kortti pakkaan
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParamList>()
 
 export default function App() {
   return (
